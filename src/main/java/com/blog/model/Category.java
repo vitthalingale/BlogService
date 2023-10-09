@@ -5,20 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@Data
-@NoArgsConstructor
 @Entity
-public class User {
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
-
-    private String name;
-    private String email;
-    private String mobileNo;
-    private String about;
-    private String password;
+    private Long categoryId;
+    private String categoryTitle;
+    private String categoryDescription;
 
 }

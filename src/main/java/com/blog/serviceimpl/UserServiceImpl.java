@@ -17,7 +17,13 @@ public class UserServiceImpl  implements UserService {
     UserRepo userRepo;
 
     @Override
-    public String createUser(User user) {
+    public String createUser(UserDto userDto) {
+        User user =new User();
+        user.setName(userDto.getName());
+        user.setMobileNo(userDto.getMobileNo());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPassword());
+        user.setAbout(userDto.getAbout());
         userRepo.save(user);
         return "successfully created user";
     }
@@ -30,6 +36,7 @@ public class UserServiceImpl  implements UserService {
             existingUser.setName(userDto.getName());
             existingUser.setEmail(userDto.getEmail());
             existingUser.setAbout(userDto.getAbout());
+            existingUser.setPassword(userDto.getPassword());
             existingUser.setMobileNo(userDto.getMobileNo());
             userRepo.save(existingUser);
             return "Successfully updated";
@@ -46,6 +53,12 @@ public class UserServiceImpl  implements UserService {
     @Override
     public User getUser(Long id) {
         return userRepo.findById(id).get();
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepo.deleteById(id);
+
     }
 
 
