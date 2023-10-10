@@ -2,6 +2,7 @@ package com.blog.controller;
 
 import com.blog.dto.CategoryDto;
 import com.blog.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,12 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("/save")
-    public String createCategory(@RequestBody CategoryDto categoryDto){
+    public String createCategory(@Valid  @RequestBody CategoryDto categoryDto){
         return categoryService.createCategory(categoryDto);
     }
 
     @PostMapping("/update")
-    public String updateCategory(@RequestBody CategoryDto categoryDto,@RequestParam Long id){
+    public String updateCategory(@Valid @RequestBody CategoryDto categoryDto,@RequestParam Long id){
         return categoryService.updateCategory(categoryDto,id);
     }
 

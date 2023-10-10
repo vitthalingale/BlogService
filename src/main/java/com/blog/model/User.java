@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
@@ -20,5 +23,8 @@ public class User {
     private String mobileNo;
     private String about;
     private String password;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Post> posts =new ArrayList<>();
 
 }
