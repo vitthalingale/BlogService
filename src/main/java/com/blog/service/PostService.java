@@ -15,6 +15,12 @@ public interface PostService {
 
     PostDto getPostById(Long id);
 
+    List<PostDto> getPostByCategory(Long categoryId);
+
+    List<PostDto> getPostByUser(Long userId);
+
+    String deletePost(Long id);
+
 
 
 }

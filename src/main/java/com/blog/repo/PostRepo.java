@@ -1,5 +1,7 @@
 package com.blog.repo;
 
+import com.blog.dto.PostDto;
+import com.blog.dto.UserDto;
 import com.blog.model.Category;
 import com.blog.model.Post;
 import com.blog.model.User;
@@ -12,5 +14,7 @@ import java.util.List;
 public interface PostRepo extends JpaRepository<Post,Long> {
 
 
+    List<Post> findByCategory(Category category);
 
+    List<Post> findByUser(User user);
 }

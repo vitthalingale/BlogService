@@ -1,6 +1,7 @@
 package com.blog.serviceimpl;
 
 import com.blog.dto.PostDto;
+import com.blog.dto.UserDto;
 import com.blog.exception.ResourceNotFoundException;
 import com.blog.model.Category;
 import com.blog.model.Post;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -72,5 +74,28 @@ public class PostServiceImpl implements PostService {
     public PostDto getPostById(Long id) {
         Post post = postRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("post", "postId", id));
         return modelMapper.map(post,PostDto.class);
+    }
+
+    @Override
+    public List<PostDto> getPostByCategory(Long categoryId) {
+        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("catefory","categroyId",categoryId));
+        List<Post> posts = postRepo.findByCategory(category);
+        List<PostDto> postDto = posts.stream().map((element) -> modelMapper.map(element, PostDto.class)).collect(Collectors.toList());
+        return postDto;
+    }
+
+    @Override
+    public List<PostDto> getPostByUser(Long userId) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("user","userId",userId));
+        List<Post> posts = postRepo.findByUser(user);
+        List<PostDto> postDto = posts.stream().map((element) -> modelMapper.map(element, PostDto.class)).collect(Collectors.toList());
+        return postDto;
+    }
+
+    @Override
+    public String  deletePost(Long id) {
+        Post post = postRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("post", "postId", id));
+        postRepo.deleteById(post.getId());
+     return "successfully deleted";
     }
 }

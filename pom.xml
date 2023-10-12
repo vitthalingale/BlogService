@@ -60,9 +60,6 @@
 				<version>2.4.3</version> <!-- Replace with the latest version -->
 			</dependency>
 
-
-
-
 	</dependencies>
 
 	<build>

@@ -36,4 +36,17 @@ public class PostController {
     }
 
 
+    @GetMapping("/getPostByCategory")
+    public  List<PostDto> getPostByCategory(@RequestParam Long categoryId){
+        return postService.getPostByCategory(categoryId);
+    }
+    @GetMapping("/getPostByUser")
+    public  List<PostDto> getPostByUser(@RequestParam Long userId){
+        return postService.getPostByUser(userId);
+    }
+
+   @DeleteMapping("/delete")
+    public String  deletePostById(@RequestParam Long id){
+        return postService.deletePost(id);
+   }
 }
