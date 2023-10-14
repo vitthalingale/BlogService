@@ -7,6 +7,8 @@ import com.blog.repo.CategoryRepo;
 import com.blog.service.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,13 +50,20 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    public List<CategoryDto> getAllCategory() {
-        List<Category> categories = categoryRepo.findAll();
-        List<CategoryDto> categoryDtos =new ArrayList<>();
-        for (Category c: categories) {
-            categoryDtos.add(modelMapper.map(c,CategoryDto.class));
+    public List<CategoryDto> getAllCategory(int page,int size) {
+        try {
+
+            PageRequest pageRequest = PageRequest.of(page - 1, size);
+            Page<Category> all = categoryRepo.findAll(pageRequest);
+            List<CategoryDto> categoryDtos = new ArrayList<>();
+            for (Category c : all) {
+                categoryDtos.add(modelMapper.map(c, CategoryDto.class));
+            }
+            return categoryDtos;
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        return categoryDtos;
+        return null;
     }
 
     @Override

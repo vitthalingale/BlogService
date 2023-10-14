@@ -27,8 +27,8 @@ public class CategoryController {
     }
 
     @GetMapping("/all")
-    public List<CategoryDto> getAllCategory(){
-        return categoryService.getAllCategory();
+    public List<CategoryDto> getAllCategory(@RequestParam (required = false,defaultValue = "1") int page,@RequestParam(required = false,defaultValue = "10") int size){
+        return categoryService.getAllCategory(page,size);
     }
     @GetMapping("/singleCategory")
     public CategoryDto getAllCategory(@RequestParam Long categoryId){

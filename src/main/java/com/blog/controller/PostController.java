@@ -27,8 +27,8 @@ public class PostController {
     }
 
     @GetMapping("/all")
-    public List<PostDto> getALlPost(){
-        return postService.getAllPost();
+    public List<PostDto> getALlPost(@RequestParam(required = false,defaultValue = "1") int page,@RequestParam(required = false,defaultValue = "10") int size){
+        return postService.getAllPost(page,size);
     }
     @GetMapping("/SinglePost")
     public PostDto getALlPost(@RequestParam long id){

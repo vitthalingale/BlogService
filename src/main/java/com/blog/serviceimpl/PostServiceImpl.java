@@ -12,6 +12,8 @@ import com.blog.repo.UserRepo;
 import com.blog.service.PostService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -61,13 +63,19 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getAllPost() {
-        List<Post> post = postRepo.findAll();
-        List<PostDto> postDtos = new ArrayList<>();
-        for (Post p: post) {
-            postDtos.add(modelMapper.map(p,PostDto.class));
+    public List<PostDto> getAllPost(int page, int size) {
+        try {
+            PageRequest pageRequest = PageRequest.of(page - 1, size);
+            Page<Post> all = postRepo.findAll(pageRequest);
+            List<PostDto> postDtos = new ArrayList<>();
+            for (Post p : all) {
+                postDtos.add(modelMapper.map(p, PostDto.class));
+            }
+            return postDtos;
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        return postDtos;
+        return null;
     }
 
     @Override

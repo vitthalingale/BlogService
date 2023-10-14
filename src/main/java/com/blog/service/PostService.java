@@ -11,7 +11,7 @@ public interface PostService {
 
     String updatePost(PostDto postDto,Long id);
 
-    List<PostDto> getAllPost();
+    List<PostDto> getAllPost(int page, int size);
 
     PostDto getPostById(Long id);
 
